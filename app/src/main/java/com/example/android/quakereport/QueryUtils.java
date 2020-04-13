@@ -22,7 +22,7 @@ import java.util.List;
  */
 
 public class QueryUtils {
-     /**
+    /**
      * Create a private constructor because no one should ever create a {@link QueryUtils} object.
      * This class is only meant to hold static variables and methods, which can be accessed
      * directly from the class name QueryUtils (and an object instance of QueryUtils is not needed).
@@ -31,12 +31,19 @@ public class QueryUtils {
     }
 
 
-    public static  List<Earthquake> fetchEarthquakeData(String requestUrl) {
+    public static List<Earthquake> fetchEarthquakeData(String requestUrl) {
 
         URL url = createUrl(requestUrl);
         List<Earthquake> earthquakes = null;
 
+
         try {
+            Thread.sleep(2000);
+        } catch ( InterruptedException e ){
+            e.printStackTrace();
+        }
+        try {
+
             String jsonResponse = makeHttpRequest(url);
             earthquakes = extractFeaturesFromJson(jsonResponse);
 
@@ -53,7 +60,7 @@ public class QueryUtils {
      */
     public static List<Earthquake> extractFeaturesFromJson(String jsonResponse) {
 
-        if(jsonResponse == null) {
+        if (jsonResponse == null) {
             return null;
         }
         // Create an empty ArrayList that we can start adding earthquakes to
@@ -70,7 +77,7 @@ public class QueryUtils {
             JSONObject object = new JSONObject(jsonResponse);
             JSONArray features = object.getJSONArray("features");
 
-            for(int i = 0; i < features.length(); i++) {
+            for (int i = 0; i < features.length(); i++) {
                 JSONObject properties = features.getJSONObject(i).getJSONObject("properties");
 
                 double mag = properties.getDouble("mag");
@@ -98,7 +105,7 @@ public class QueryUtils {
 
         URL url = null;
 
-        if(stringUrl == null) {
+        if (stringUrl == null) {
             return url;
         }
         try {
@@ -115,7 +122,7 @@ public class QueryUtils {
         InputStream inputStream = null;
 
 
-        if(url == null) {
+        if (url == null) {
             return jsonResponse;
         }
 
@@ -124,17 +131,17 @@ public class QueryUtils {
             urlConnection.setRequestMethod("GET");
             urlConnection.connect();
 
-            if(urlConnection.getResponseCode() == 200) {
+            if (urlConnection.getResponseCode() == 200) {
                 inputStream = urlConnection.getInputStream();
                 jsonResponse = readFromStream(inputStream);
             }
         } catch (IOException e) {
             e.printStackTrace();
         } finally {
-            if(urlConnection != null) {
+            if (urlConnection != null) {
                 urlConnection.disconnect();
             }
-            if(inputStream != null) {
+            if (inputStream != null) {
                 inputStream.close();
             }
         }
@@ -142,12 +149,12 @@ public class QueryUtils {
         return jsonResponse;
     }
 
-    private static String readFromStream (InputStream inputStream) {
+    private static String readFromStream(InputStream inputStream) {
         InputStreamReader streamReader = null;
         BufferedReader reader = null;
         StringBuilder result = new StringBuilder();
 
-        if(inputStream == null) {
+        if (inputStream == null) {
             return null;
         }
 
