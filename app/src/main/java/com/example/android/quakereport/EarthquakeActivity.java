@@ -51,9 +51,6 @@ public class EarthquakeActivity extends AppCompatActivity implements LoaderManag
         super.onCreate(savedInstanceState);
         setContentView(R.layout.earthquake_activity);
 
-//        DownloadData downloadData = new DownloadData();
-//        downloadData.execute(USGS_REQUEST_URL);
-
         mEmptyState = (TextView) findViewById(R.id.empty_view);
         mProgressBar = (ProgressBar) findViewById(R.id.progressBar);
 
@@ -86,8 +83,6 @@ public class EarthquakeActivity extends AppCompatActivity implements LoaderManag
                 startActivity(intent);
             }
         });
-        // Create a new {@link ArrayAdapter} of earthquakes
-
     }
 
     @Override
@@ -112,30 +107,5 @@ public class EarthquakeActivity extends AppCompatActivity implements LoaderManag
     public void onLoaderReset(Loader<List<Earthquake>> loader) {
         mAdapter.clear();
     }
-
-//    private class DownloadData extends AsyncTask<String, Void, List<Earthquake> > {
-//
-//        @Override
-//        protected List<Earthquake> doInBackground(String... urls) {
-//
-//            List<Earthquake> earthquakes = new ArrayList<>();
-//            if(urls.length < 1 || urls[0] == null) {
-//                return null;
-//            }
-//
-//            earthquakes = QueryUtils.fetchEarthquakeData(urls[0]);
-//            return earthquakes;
-//        }
-//
-//        @Override
-//        protected void onPostExecute(List<Earthquake> earthquakesList) {
-//
-
-//            mAdapter.clear();
-//            if(earthquakesList != null && !earthquakesList.isEmpty() ) {
-//                mAdapter.addAll(earthquakesList);
-//            }
-//        }
-//    }
 
 }

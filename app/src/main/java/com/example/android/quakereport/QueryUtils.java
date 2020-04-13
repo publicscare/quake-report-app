@@ -51,13 +51,13 @@ public class QueryUtils {
      * Return a list of {@link Earthquake} objects that has been built up from
      * parsing a JSON response.
      */
-    public static ArrayList<Earthquake> extractFeaturesFromJson(String jsonResponse) {
+    public static List<Earthquake> extractFeaturesFromJson(String jsonResponse) {
 
         if(jsonResponse == null) {
             return null;
         }
         // Create an empty ArrayList that we can start adding earthquakes to
-        ArrayList<Earthquake> earthquakes = new ArrayList<>();
+        List<Earthquake> earthquakes = new ArrayList<>();
 
         // Try to parse the SAMPLE_JSON_RESPONSE. If there's a problem with the way the JSON
         // is formatted, a JSONException exception object will be thrown.
